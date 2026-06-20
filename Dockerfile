@@ -1,4 +1,17 @@
-FROM teddysun/v2ray:latest
+# Use uma imagem base do Python
+FROM python:3.9-slim
+
+# Define o diretório de trabalho
+WORKDIR /app
+
+# Copia os arquivos necessários
+COPY . .
+
+# Instala as dependências
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expõe a porta 8080
 EXPOSE 8080
-COPY config.json /etc/v2ray/config.json
-CMD ["v2ray", "run", "-config", "/etc/v2ray/config.json"]
+
+# Comando para rodar o servidor
+CMD ["python", "proxy.py"]
